@@ -26,7 +26,7 @@ def main():
     with col1:
         model = st.selectbox(
             "Model",
-            ("gpt-3.5-turbo-1106", "gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct", "davinci", "curie")
+            ("gpt-3.5-turbo-1106", "gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct")
         )
     with col2:
         lang = st.selectbox(
@@ -77,7 +77,7 @@ def main():
                     ],
                     stream=True,
                     top_p=1,
-                    frequency_penalty=0.25,
+                    frequency_penalty=0.45,
                     presence_penalty=0.15
             ):
                 # Stream response

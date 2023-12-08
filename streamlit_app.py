@@ -76,7 +76,7 @@ def main():
                         for m in st.session_state.messages
                     ],
                     stream=True,
-                    top_p=1.2,
+                    top_p=1,
                     frequency_penalty=0.25,
                     presence_penalty=0.15
             ):

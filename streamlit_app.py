@@ -26,7 +26,7 @@ def main():
     with col1:
         model = st.selectbox(
             "Model",
-            ("gpt-3.5-turbo-1106", "gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct")
+            ("gpt-3.5-turbo-1106", "gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct", "davinci", "curie")
         )
     with col2:
         lang = st.selectbox(
@@ -76,6 +76,9 @@ def main():
                         for m in st.session_state.messages
                     ],
                     stream=True,
+                    top_p=1.2,
+                    frequency_penalty=0.25,
+                    presence_penalty=0.15
             ):
                 # Stream response
                 full_response += (response.choices[0].delta.content or "")

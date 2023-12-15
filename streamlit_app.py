@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 
 from openai import OpenAI
@@ -6,6 +7,10 @@ from openai import OpenAI
 def main():
     st.set_page_config(page_title="Chat With A Person")
     st.header("Let's Chat !", divider="gray")
+
+    f = open('character.json')
+    data = json.load(f)
+    f.close()
 
     # Initialize the message history
     if "messages" not in st.session_state:
@@ -33,50 +38,54 @@ def main():
         with col2_2:
             lang = st.selectbox(
                 "Language",
-                ("Indonesia", "English"),
+                ("id", "en"),
                 placeholder="Indonesia"
             )
 
         st.session_state.client = OpenAI(api_key=api_key)
 
     # Personality Tab
-    with personality_tab:
+    with (personality_tab):
         st.title("Personality")
 
-        # Set the information needed
-        name = st.text_input("Name", placeholder="Vincent")
+        if st.toggle("Template", value=True):
+            template = st.selectbox("Character",
+                                    ("Lila", "Jovan", "Vincent", "Siti"),
+                                    placeholder="Lila")
 
-        col1_1, col1_2 = st.columns(2)
-        with col1_1:
-            gender = st.selectbox(
-                "Gender",
-                ("Laki - Laki", "Perempuan"),
-                placeholder="Laki - Laki"
+            personalities = data[lang]['character'][template]
+
+        else:
+            # Set the information needed
+            name = st.text_input("Name", placeholder="Vincent")
+
+            col1_1, col1_2 = st.columns(2)
+            with col1_1:
+                gender = st.selectbox(
+                    "Gender",
+                    ("Laki - Laki", "Perempuan"),
+                    placeholder="Laki - Laki"
+                )
+            with col1_2:
+                age = st.text_input("Age", placeholder="20")
+
+            city = st.text_input("City", placeholder="Jakarta")
+            personality = st.text_area("Personality", placeholder="Kind, Talktive, ...", max_chars=50)
+            behaviour = st.text_area("Behaviour", placeholder="Usually said ooh at the end of the text", max_chars=50)
+            like = st.text_area("Like", placeholder="Food, Golf, ...", max_chars=50)
+            dislike = st.text_area("Dislike", placeholder="Bad People, Spicy Food", max_chars=50)
+
+            personalities = (
+                str(data[lang]['template']).replace("{name}", name).
+                replace("{gender}", gender).replace("{age}", age).
+                replace("{city}", city).replace("{behaviour}", behaviour).
+                replace("{personality}", personality).replace("{like}", like).replace("{dislike}", dislike)
             )
-        with col1_2:
-            age = st.text_input("Age", placeholder="20")
-
-        city = st.text_input("City", placeholder="Jakarta")
-        personality = st.text_area("Personality", placeholder="Kind, Talktive, ...", max_chars=50)
-        behaviour = st.text_area("Behaviour", placeholder="Usually said ooh at the end of the text", max_chars=50)
-        like = st.text_area("Like", placeholder="Food, Golf, ...", max_chars=50)
-        dislike = st.text_area("Dislike", placeholder="Bad People, Spicy Food", max_chars=50)
-
-        personalities = f"""Kamu adalah {name} teman {gender}ku yang berumur {age} dan berasal dari {city}. Kamu memiliki
-                kepribadian {personality}. Kamu kalau berbicara biasanya {behaviour}. Kamu menyukai {like} dan kamu tidak menyukai
-                {dislike}. Kamu tidak boleh sama sekali mengaku bahwa kamu chatbot ataupun AI. Kamu biasanya yang mengusulkan
-                topik pembicaraan terlebih dahulu dan tidak pernah menggunakan kalimat tanya yang baku seperti 'ada yang ingin
-                ditanyakan' atau 'ada yang bisa dibantu'."""
 
         if st.button("Chat", type="primary", ):
-            match lang:
-                case "Indonesia":
-                    intro = f"Namamu adalah {name}"
-                case "English":
-                    intro = f"Your name is {name}"
 
             st.session_state.messages = [
-                {"role": "system", "content": f"{intro}. {personalities}"}
+                {"role": "system", "content": f"{personalities}"}
             ]
 
     # View and update chat

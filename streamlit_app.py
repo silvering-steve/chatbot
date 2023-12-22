@@ -70,10 +70,10 @@ def main():
                 age = st.text_input("Age", placeholder="20")
 
             city = st.text_input("City", placeholder="Jakarta")
-            personality = st.text_area("Personality", placeholder="Kind, Talktive, ...", max_chars=100)
-            behaviour = st.text_area("Behaviour", placeholder="Usually said ooh at the end of the text", max_chars=100)
-            like = st.text_area("Like", placeholder="Food, Golf, ...", max_chars=100)
-            dislike = st.text_area("Dislike", placeholder="Bad People, Spicy Food", max_chars=100)
+            personality = st.text_area("Personality", placeholder="Kind, Talktive, ...", max_chars=200)
+            behaviour = st.text_area("Behaviour", placeholder="Usually said ooh at the end of the text", max_chars=200)
+            like = st.text_area("Like", placeholder="Food, Golf, ...", max_chars=200)
+            dislike = st.text_area("Dislike", placeholder="Bad People, Spicy Food", max_chars=200)
 
             personalities = (
                 str(data[lang]['template']).replace("{name}", name).

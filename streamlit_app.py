@@ -106,6 +106,14 @@ def main():
         st.session_state.data["respond"]["like"] = like_respond
         st.session_state.data["respond"]["d_know"] = dknow_respond
 
+        json_data = json.dumps(st.session_state.data, indent=2)
+        st.download_button(
+            label="Download Person",
+            file_name="data.json",
+            mime="application/json",
+            data=json_data,
+        )
+
     with personality_tab:
         choices = ["Disagree", "Slightly disagree", "Neutral", "Slightly agree", "Agree"]
         personality = {}

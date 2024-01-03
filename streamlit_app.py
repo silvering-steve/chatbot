@@ -84,7 +84,7 @@ def main():
 
         st.session_state.data["person"]["name"] = name
         st.session_state.data["person"]["age"] = age
-        st.session_state.data["person"]["date"] = date
+        st.session_state.data["person"]["date"] = str(date)
         st.session_state.data["person"]["birthplace"] = birthplace
         st.session_state.data["person"]["address"] = address
         st.session_state.data["person"]["city"] = city
@@ -106,12 +106,12 @@ def main():
         st.session_state.data["respond"]["like"] = like_respond
         st.session_state.data["respond"]["d_know"] = dknow_respond
 
-        json_data = json.dumps(st.session_state.data, indent=2)
+        json_data_person = json.dumps(st.session_state.data, indent=2)
         st.download_button(
             label="Download Person",
-            file_name="data.json",
+            file_name="data_person.json",
             mime="application/json",
-            data=json_data,
+            data=json_data_person,
         )
 
     with personality_tab:

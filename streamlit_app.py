@@ -1,3 +1,4 @@
+import datetime
 import json
 import requests
 
@@ -39,7 +40,7 @@ def main():
         with col2:
             age = st.text_input("Age")
         with col3:
-            date = st.date_input("Birthdate")
+            date = st.date_input("Birthdate", min_value=datetime.datetime.today() - datetime.timedelta(days=60*365))
 
         col4, col5, col6, col7 = st.columns(4)
         with col4:

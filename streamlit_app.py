@@ -56,11 +56,10 @@ class Person:
             - Dislikes: {self.dislikes}.
             - Personalities: {self.personalities}.
             - Behaviours when talking casually: You usually reply with {self.behaviours} when talking.
-            - Behaviours when talking something you didn't like: You usually reply with {self.respond[0]} behaviours.
-            - Behaviours when talking something you like: You usually reply with {self.respond[1]} behaviours.
+            - Behaviours when talking something you like: You usually reply with {self.respond[0]} behaviours.
+            - Behaviours when talking something you didn't like: You usually reply with {self.respond[1]} behaviours.
             - Behaviours when talking something you don't know: You usually reply with {self.respond[2]} behaviours.
             
-            Every time you want to speak, you should use the habits you have and always respond to the conversation with the personality you have.
         """
 
 
@@ -128,18 +127,18 @@ def main():
 
             if st.button("Set Model"):
                 system = Person(
-                    name=person_data["person"]["name"],
-                    age=person_data["person"]["age"],
-                    occupation={"title": person_data["person"]["job"], "desc": person_data["person"]["job_desc"]},
-                    likes=person_data["behaviour"]["likes"],
-                    dislikes=person_data["behaviour"]["dislikes"],
-                    behaviours=person_data["behaviour"]["behaviour"],
-                    personalities=person_data["behaviour"]["personalities"],
-                    birthplace=person_data["person"]["birthplace"],
-                    birthdate=person_data["person"]["date"],
-                    address=person_data["person"]["address"],
-                    religion=person_data["person"]["religion"],
-                    respond=list(person_data["respond"].values())
+                    name=person_data["name"],
+                    age=person_data["age"],
+                    occupation={"title": person_data["job"], "desc": person_data["job_desc"]},
+                    likes=person_data["likes"],
+                    dislikes=person_data["dislikes"],
+                    behaviours=person_data["behaviour"],
+                    personalities=person_data["personalities"],
+                    birthplace=person_data["birthplace"],
+                    birthdate=person_data["date"],
+                    address=person_data["address"],
+                    religion=person_data["religion"],
+                    respond=list(person_data["like_respond"], person_data["dlike_respond"], person_data["dknow_respond"])
                 )
 
                 prompt = ChatPromptTemplate.from_messages(

@@ -1,4 +1,4 @@
-numpy==1.23.5
+numpy==1.21.6
 face_alignment==1.3.0
 imageio==2.19.3
 imageio-ffmpeg==0.4.7

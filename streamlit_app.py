@@ -5,9 +5,6 @@ import subprocess
 from typing import Dict, List
 
 from elevenlabs import set_api_key, Voice, VoiceSettings, generate
-from moviepy.video import VideoClip
-from moviepy.video.io.VideoFileClip import VideoFileClip
-from pydub import AudioSegment
 
 import streamlit as st
 
